@@ -3,9 +3,13 @@
 @inject NavigationManager NavigationManager
 @inject IViewInventoriesByNameUseCase ViewInventoriesByNameUseCase
 
-<h3>Inventory List</h3>
+
+<h3>Inventory List 1</h3>
 <br />
-<ViewInventoriesComponent OnSearchInventories="OnSearchInventories"></ViewInventoriesComponent>
+<ViewInventoriesComponent
+    OnSearchInventories="OnSearchInventories"
+    DisplaySearhcTesult="true">
+</ViewInventoriesComponent>
 
 @if(listInventories != null)
 {
@@ -22,14 +26,7 @@
         <tbody>
             @foreach(var inv in this.listInventories)
             {
-                <tr>
-                    <td>@inv.InventoryName</td>
-                    <td>@inv.Quantity</td>
-                    <td>@inv.Price.ToString("c")</td>
-                    <td>
-                        <button class="btn btn-light"></button>
-                    </td>
-                </tr>
+                <InventoryItemComponent Inventory="inv"></InventoryItemComponent>
             }
         </tbody>
     </table>
@@ -57,4 +54,7 @@
     {
         NavigationManager.NavigateTo("/addinventory");
     }
+
+
+
 }

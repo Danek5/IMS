@@ -7,19 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IMS.UseCases
+namespace IMS.UseCases.Inventories
 {
-    public class EditInvetoryUseCase : IEditInvetoryUseCase
+    public class ViewInventoryByIdUseCase : IViewInventoryByIdUseCase
     {
         private readonly IInventoryRepository inventoryRepository;
 
-        public EditInvetoryUseCase(IInventoryRepository inventoryRepository)
+        public ViewInventoryByIdUseCase(IInventoryRepository inventoryRepository)
         {
             this.inventoryRepository = inventoryRepository;
         }
-        public async Task ExecuteAsync(Inventory inventory)
+        public async Task<Inventory?> ExecuteAsync(int inventoryID)
         {
-            await this.inventoryRepository.UpdateInventoryAsync(inventory);
+            return await inventoryRepository.GetInventoryByIdAsync(inventoryID);
         }
     }
 }

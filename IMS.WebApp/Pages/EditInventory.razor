@@ -1,6 +1,9 @@
 ﻿@page "/editinventory/{invId:int}"
 
 @inject IViewInventoryByIdUseCase ViewInventoryByIdUseCase
+@inject IEditInvetoryUseCase EditInvetoryUseCase
+@inject NavigationManager NavigationManager
+
 
 <h3>Edit Inventory</h3>
 
@@ -39,13 +42,18 @@
 
     private Inventory? inventory;
 
-    public async Task OnInitializedAsync()
+    protected override async Task OnInitializeAsync()
     {
         this.inventory = await ViewInventoryByIdUseCase.ExecuteAsync(InvId);
     }
 
-    public void OnValidSubmit()
+
+    public async Task OnValidSubmit()
     {
-        EditInventoryUseCase.ExecuteAsync(this.inventory);
+        if(this.inventory != null)
+        {      
+            await EditInventoryUseCase.ExecuteAsync(this.inventory);
+            NavigationManager.NavigateTo("/inventories");
+        }
     }
 }

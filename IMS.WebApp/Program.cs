@@ -1,6 +1,7 @@
 using IMS.Plugins.EFCore;
 using IMS.UseCases;
 using IMS.UseCases.Interfaces;
+using IMS.UseCases.Inventories;
 using IMS.UseCases.PluginInterfaces;
 using IMS.WebApp.Areas.Identity;
 using IMS.WebApp.Data;
@@ -31,12 +32,16 @@ builder.Services.AddDbContext<IMSContext>(options =>
 });
 //dependency injection repositories
 builder.Services.AddTransient<IInventoryRepository, InventoryRepository>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
 
 //dependency injection use cases
 builder.Services.AddTransient<IViewInventoriesByNameUseCase, ViewInventoriesByNameUseCase>();
 builder.Services.AddTransient<IAddInventoryUseCase, AddInventoryUseCase>();
 builder.Services.AddTransient<IEditInvetoryUseCase, EditInvetoryUseCase>();
 builder.Services.AddTransient<IViewInventoryByIdUseCase, ViewInventoryByIdUseCase>();
+builder.Services.AddTransient<IViewProductsByNameUseCase, ViewProductsByNameUseCase>();
+builder.Services.AddTransient<IAddProductUseCase, AddProductUseCase>();
+
 
 
 var app = builder.Build();
