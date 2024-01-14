@@ -19,5 +19,7 @@ namespace IMS.CoreBusiness
         [Range(0, int.MaxValue, ErrorMessage = "Qauntity must be grater or equal to {0}")]
 
         public double Price { get; set; }
+        public List<ProductInventory>? ProductInventories { get; set; }
+
     }
 }

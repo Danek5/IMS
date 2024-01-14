@@ -51,8 +51,8 @@
     public async Task OnValidSubmit()
     {
         if(this.inventory != null)
-        {      
-            await EditInventoryUseCase.ExecuteAsync(this.inventory);
+        {
+            await EditInvetoryUseCase.ExecuteAsync(this.inventory);
             NavigationManager.NavigateTo("/inventories");
         }
     }

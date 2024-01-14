@@ -19,6 +19,10 @@ namespace IMS.Plugins.EFCore
         public DbSet<Product> Products { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ProductInventory>().HasKey(pi => new { pi.ProductId, pi.InventoryId});
+            modelBuilder.Entity<ProductInventory>().HasOne(pi => pi.Product).WithMany(p => p.ProductInventories).HasForeignKey(pi => pi.ProductId);
+            modelBuilder.Entity<ProductInventory>().HasOne(pi => pi.Product).WithMany(i => i.ProductInventories).HasForeignKey(pi => pi.InventoryId);
+
             modelBuilder.Entity<Inventory>().HasData(
             new Inventory { InventoryId = 1, InventoryName = "Electonics", Price = 22, Quantity = 100 },
             new Inventory { InventoryId = 2, InventoryName = "Fruits", Price = 222, Quantity = 100 },
@@ -35,6 +39,21 @@ namespace IMS.Plugins.EFCore
             new Product { ProductId = 2, ProductName = "Banana", Price = 222, Quantity = 100 },
             new Product { ProductId = 3, ProductName = "Beef", Price = 220, Quantity = 100 }
             );
+
+            modelBuilder.Entity<ProductInventory>().HasData(
+                new ProductInventory { ProductId = 1, InventoryId = 1, InventoryQuntity = 1 },
+                new ProductInventory { ProductId = 1, InventoryId = 2, InventoryQuntity = 1 },
+                new ProductInventory { ProductId = 1, InventoryId = 3, InventoryQuntity = 4 },
+                new ProductInventory { ProductId = 1, InventoryId = 4, InventoryQuntity = 5 }
+            );
+
+            modelBuilder.Entity<ProductInventory>().HasData(
+                new ProductInventory { ProductId = 2, InventoryId = 5, InventoryQuntity = 1 },
+                new ProductInventory { ProductId = 2, InventoryId = 2, InventoryQuntity = 1 },
+                new ProductInventory { ProductId = 2, InventoryId = 3, InventoryQuntity = 4 },
+                new ProductInventory { ProductId = 2, InventoryId = 4, InventoryQuntity = 5 }
+            );
+
         }
     }
 }
